@@ -1,0 +1,1234 @@
+[
+   {
+      "name": "specimenCollection",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "fieldGroups": [
+          {
+            "title": "Additional Information",
+            "criteria": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "==",
+                  "value": "'New'"
+                },
+                {
+                  "field": "specimen.type",
+                  "op": "==",
+                  "value": "'Frozen Tissue'"
+                }
+              ]
+            },
+            "enableCofrc": false,
+            "fields": [
+              {
+                "name": "specimen.label",
+                "baseField": "specimen.label",
+                "type": "span"
+              },
+              {
+                "name": "specimen.type",
+                "baseField": "specimen.type",
+                "type": "span"
+              },
+              {
+                "name": "specimen.pathology",
+                "baseField": "specimen.pathology",
+                "type": "span"
+              },
+              {
+                "name": "specimen.extensionDetail.attrsMap.NT8",
+                "baseField": "specimen.extensionDetail.attrsMap.NT8"
+              },
+              {
+                "name": "specimen.extensionDetail.attrsMap.NT9",
+                "baseField": "specimen.extensionDetail.attrsMap.NT9"
+              },
+              {
+                "name": "specimen.anatomicSite",
+                "baseField": "specimen.anatomicSite"
+              },
+              {
+                "name": "specimen.laterality",
+                "baseField": "specimen.laterality"
+              },
+              {
+                "name": "specimen.extensionDetail.attrsMap.DD22",
+                "baseField": "specimen.extensionDetail.attrsMap.DD22"
+              }
+            ]
+          }
+        ]
+      }
+    },
+   {
+      "name": "dictionary",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "fields": [
+          {
+            "name": "cpr.registrationDate",
+            "caption": "Registration Date",
+            "type": "date",
+            "optional": false,
+            "defaultValue": "current_date"
+          },
+          {
+            "name": "cpr.participant.firstName",
+            "caption": "First Name",
+            "type": "text",
+            "optional": true
+          },
+          {
+            "name": "cpr.participant.middleName",
+            "caption": "Middle Name",
+            "type": "text",
+            "optional": true
+          },
+          {
+            "name": "cpr.participant.lastName",
+            "caption": "Last Name",
+            "type": "text",
+            "optional": true
+          },
+          {
+            "name": "cpr.participant.birthDate",
+            "caption": "Birth Date",
+            "type": "date",
+            "dateOnly": true,
+            "optional": true
+          },
+          {
+            "name": "cpr.participant.gender",
+            "caption": "Gender",
+            "type": "pvs",
+            "attr": "gender",
+            "optional": true
+          },
+          {
+            "name": "cpr.participant.pmis",
+            "type": "collection",
+            "fields": [
+              {
+                "name": "siteName",
+                "caption": "Site",
+                "type": "dropdown",
+                "multiple": false,
+                "optional": false,
+                "listSource": {
+                  "apiUrl": "sites",
+                  "displayProp": "name",
+                  "selectProp": "name",
+                  "queryParams": {
+                    "dynamic": {},
+                    "static": {
+                      "listAll": true
+                    }
+                  }
+                }
+              },
+              {
+                "name": "mrn",
+                "caption": "MRN",
+                "type": "text",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "cpr.participant.extensionDetail.attrsMap.NT3",
+            "caption": "Darwin ID",
+            "type": "text",
+            "optional": true,
+            "pattern": "/^([0-9]+|[0-9]*\\.?[0-9]+[e]?[+-]?[0-9]*)$/"
+          },
+          {
+            "name": "visit.name",
+            "caption": "Bank Number",
+            "type": "text",
+            "optional": true,
+            "showIf": {
+              "op": "OR",
+              "rules": [
+                {
+                  "field": "cp.visitNameFmt",
+                  "op": "not_exist"
+                },
+                {
+                  "field": "cp.manualVisitNameEnabled",
+                  "op": "exists"
+                }
+              ]
+            }
+          },
+          {
+            "name": "visit.surgicalPathologyNumber",
+            "caption": "Accession Number",
+            "type": "text",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "visit.status",
+                  "op": "!=",
+                  "value": "'Missed Collection'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "visit.clinicalDiagnoses",
+            "caption": "Disease",
+            "type": "pvs",
+            "attr": "clinical_diagnosis",
+            "optional": true,
+            "multiple": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "visit.status",
+                  "op": "!=",
+                  "value": "'Missed Collection'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "visit.extensionDetail.attrsMap.DD3",
+            "caption": "Disease Status",
+            "type": "dropdown",
+            "optional": true,
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "surgeonName",
+                  "controlName": "DD3"
+                }
+              }
+            }
+          },
+          {
+            "name": "visit.visitDate",
+            "caption": "Procurement Date",
+            "type": "date",
+            "defaultValue": "current_date",
+            "optional": false
+          },
+          {
+            "name": "visit.extensionDetail.attrsMap.TA4",
+            "caption": "Diagnosis Notes",
+            "type": "text",
+            "optional": true
+          },
+          {
+            "name": "visit.extensionDetail.attrsMap.DP5",
+            "caption": "Operation Date",
+            "type": "datetime",
+            "optional": true
+          },
+          {
+            "name": "visit.site",
+            "caption": "Lab",
+            "type": "dropdown",
+            "multiple": false,
+            "optional": false,
+            "listSource": {
+              "apiUrl": "sites",
+              "displayProp": "name",
+              "selectProp": "name",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "listAll": true
+                }
+              }
+            },
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "visit.status",
+                  "op": "!=",
+                  "value": "'Missed Collection'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "visit.extensionDetail.attrsMap.DP6",
+            "caption": "Path Date",
+            "type": "datetime",
+            "optional": true
+          },
+          {
+            "name": "visit.extensionDetail.attrsMap.FC2",
+            "caption": "Surgeon",
+            "type": "user",
+            "selectProp": "id"
+          },
+          {
+            "name": "visit.comments",
+            "caption": "Bank Notes",
+            "type": "text",
+            "optional": true
+          },
+          {
+            "name": "specimen.label",
+            "caption": "Label",
+            "type": "text",
+            "optional": true,
+            "showIf": {
+              "op": "OR",
+              "rules": [
+                {
+                  "field": "specimen.labelFmt",
+                  "op": "not_exist"
+                },
+                {
+                  "field": "cp.manualSpecLabelEnabled",
+                  "op": "exists"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.reqCode",
+            "caption": "SR code",
+            "type": "text",
+            "optional": false
+          },
+          {
+            "name": "specimen.type",
+            "caption": "Specimen Type",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "specimen-type",
+            "specimen": "specimen",
+            "optional": false
+          },
+          {
+            "name": "specimen.initialQty",
+            "caption": "Initial Quantity",
+            "showInOverviewIf": "useShowIf",
+            "type": "specimen-quantity",
+            "specimen": "specimen",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.availableQty",
+            "caption": "Available Quantity",
+            "showInOverviewIf": "useShowIf",
+            "type": "specimen-quantity",
+            "specimen": "specimen",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.NT8",
+            "caption": "Part",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "text",
+            "optional": true,
+            "pattern": "/^([0-9]+|[0-9]*\\.?[0-9]+[e]?[+-]?[0-9]*)$/"
+          },
+          {
+            "name": "specimen.parentLabel",
+            "caption": "Parent Specimen",
+            "type": "text",
+            "optional": false,
+            "url": "specimen({specimenId: specimen.parentId})",
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "showInOverviewIf": "useShowIf",
+            "modelOpts": {
+              "updateOn": "blur"
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.NT9",
+            "caption": "Subpart",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "text",
+            "optional": true,
+            "pattern": "/^([0-9]+|[0-9]*\\.?[0-9]+[e]?[+-]?[0-9]*)$/"
+          },
+          {
+            "name": "specimen.lineage",
+            "caption": "Lineage",
+            "showInOverviewIf": "specimen.lineage == 'Aliquot'",
+            "type": "radio",
+            "optional": false,
+            "options": [
+              {
+                "value": "New",
+                "caption": "New"
+              },
+              {
+                "value": "Derived",
+                "caption": "Derived"
+              },
+              {
+                "value": "Aliquot",
+                "caption": "Aliquot"
+              }
+            ]
+          },
+          {
+            "name": "specimen.anatomicSite",
+            "caption": "Anatomical Site",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "pvs",
+            "attr": "anatomic_site",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'Aliquot'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD19",
+            "caption": "Unit description",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "DD19"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD24",
+            "caption": "Is the sample sterile?",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "DD24"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD22",
+            "caption": "Location",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "DD22"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.createdOn",
+            "caption": "Processed Time",
+            "type": "datetime",
+            "optional": false,
+            "defaultValue": "current_date",
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "showInOverviewIf": "useShowIf"
+          },
+          {
+            "name": "calcSpecimen.age",
+            "displayExpr": "fns.ifNotNull(specimen.extensionDetail.attrsMap.DP21,fns.dateDiffInMinutes(specimen.extensionDetail.attrsMap.DP21, specimen.createdOn) + ' mins', 'Not Applicable')",
+            "caption": "Time Lapse",
+            "type": "span",
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "showInOverviewIf": "useShowIf"
+          },
+          {
+            "name": "specimen.laterality",
+            "caption": "Laterality",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "pvs",
+            "attr": "laterality",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'Aliquot'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.FC15",
+            "caption": "Biobank technician",
+            "type": "user",
+            "selectProp": "id",
+            "optional": true
+          },
+          {
+            "name": "specimen.pathology",
+            "caption": "Category",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "pvs",
+            "attr": "pathology_status",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'Aliquot'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.storageLocation",
+            "caption": "Box Location",
+            "type": "storage-position",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "cpId": "specimen.cpId",
+            "entity": "specimen",
+            "url": "container-detail.locations({containerId: specimen.storageLocation.id})",
+            "subFields": [
+              {
+                "name": "name",
+                "caption": "Container Name"
+              },
+              {
+                "name": "positionY",
+                "caption": "Container Row"
+              },
+              {
+                "name": "positionX",
+                "caption": "Container Column"
+              }
+            ]
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD23",
+            "caption": "Quality",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "DD23"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.FC3",
+            "caption": "Additional processing technician",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "user",
+            "selectProp": "id",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DP5",
+            "caption": "Additional processing date",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "datetime",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.TA2",
+            "caption": "Additional Information Details",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "textarea",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.MLB4",
+            "caption": "Accession Temperature",
+            "showInOverviewIf": "specimen.lineage == 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "MLB4"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD20",
+            "caption": "Biobank Temperature",
+            "showInOverviewIf": "specimen.lineage == 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "DD20"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DP27",
+            "caption": "Accessioned time",
+            "showInOverviewIf": "specimen.lineage == 'New'",
+            "type": "datetime",
+            "optional": true
+          },
+          {
+            "name": "specimen.comments",
+            "caption": "Site Specify",
+            "showInOverviewIf": "specimen.lineage == 'New'",
+            "type": "text",
+            "optional": true
+          },
+          {
+            "name": "specimen.collectionEvent.time",
+            "caption": "Procurement Time",
+            "type": "datetime",
+            "optional": false,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "==",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "showInOverviewIf": "useShowIf"
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DP21",
+            "caption": "Resection time",
+            "showInOverviewIf": "specimen.lineage == 'New'",
+            "type": "datetime",
+            "optional": true
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD21",
+            "caption": "Additional processing temperature",
+            "showInOverviewIf": "specimen.lineage != 'New'",
+            "type": "dropdown",
+            "optional": true,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "listSource": {
+              "apiUrl": "forms/permissible-values",
+              "selectProp": "value",
+              "displayProp": "value",
+              "queryParams": {
+                "dynamic": {},
+                "static": {
+                  "formName": "specimenAdditionalDetails",
+                  "controlName": "DD21"
+                }
+              }
+            }
+          },
+          {
+            "name": "specimen.receivedEvent.user",
+            "caption": "Harvested By",
+            "type": "user",
+            "selectProp": "id",
+            "optional": false,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "==",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "showInOverviewIf": "useShowIf"
+          },
+          {
+            "name": "specimen.receivedEvent.time",
+            "caption": "Biobank Receipt Time",
+            "type": "datetime",
+            "optional": false,
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "==",
+                  "value": "'New'"
+                }
+              ]
+            },
+            "showInOverviewIf": "useShowIf"
+          }
+        ]
+      }
+    },
+   {
+      "name": "common",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "spmnDescTmpl": "<span ng-if=\"specimen.lineage == 'New' || detailed\"><span ng-if=\"!!specimen.pathology && specimen.pathology != notSpecified\">{{specimen.pathology}} </span><span ng-if=\"specimen.type != 'Fresh Tissue'\">{{specimen.type}} </span><span ng-if=\"specimen.specimenClass == 'Tissue' && !!specimen.anatomicSite && specimen.anatomicSite != notSpecified\">from  {{specimen.anatomicSite}}</span><span ng-if=\"specimen.specimenClass == 'Fluid' && !!specimen.collectionContainer && specimen.collectionContainer != notSpecified\">collected in {{specimen.collectionContainer}}</span></span><span ng-if=\"specimen.lineage == 'Aliquot' && !detailed\"><span translate=\"specimens.aliquot\">Aliquot</span></span><span ng-if=\"specimen.lineage == 'Derived' && !detailed\"><span translate=\"specimens.derived\">Derived</span> {{specimen.type}}</span><span ng-if=\"!!showReqLabel\"><span ng-switch on=\"(!!specimen.name || !!specimen.reqLabel) && specimen.lineage != 'Aliquot'\"><span ng-switch-when=\"true\"> ({{specimen.name || specimen.reqLabel}}) </span><span ng-switch-default><span ng-if=\"!!specimen.code || !!specimen.reqCode\"> ({{specimen.code || specimen.reqCode}}) </span></span></span></span>",
+        "participantHeader": {
+          "breadcrumb": "<ul os-breadcrumbs><li><a ui-sref=\"cp-list-view({cpId: cpr.cpId})\">{{cp.shortTitle}}</a></li><li><a ui-sref=\"participant-list({cpId: cpr.cpId})\">Participants</a></li></ul>",
+          "leftTitle": "{{cpr.ppid}}",
+          "rightTitle": "<div ng-style=\"!!cpr.participant.pmis[0].mrn && {'font-size': '16px', 'margin-top': '-15px'}\" ng-if=\"userCtx.hasPhiAccess\"><div>{{cpr.participant.firstName}} {{cpr.participant.lastName}}</div><div>{{cpr.participant.pmis[0].mrn}}</div></div>"
+        },
+        "visitHeader": {
+          "breadcrumb": "<ul os-breadcrumbs><li><a ui-sref=\"cp-list-view({cpId: cpr.cpId})\">{{cp.shortTitle}}</a></li><li><a ui-sref=\"participant-detail.overview({cprId: cpr.id})\">{{cpr.ppid}}</a></li></ul>",
+          "leftTitle": "{{visit.name}}",
+          "rightTitle": "<div ng-style=\"!!cpr.participant.pmis[0].mrn && {'font-size': '16px', 'margin-top': '-15px'}\" ng-if=\"userCtx.hasPhiAccess\"><div>{{cpr.participant.firstName}} {{cpr.participant.lastName}}</div><div>{{cpr.participant.pmis[0].mrn}}</div></div>"
+        },
+        "specimenHeader": {
+          "breadcrumb": "<ul os-breadcrumbs><li><a ui-sref=\"cp-list-view({cpId: cpr.cpId})\">{{cp.shortTitle}}</a></li><li><a ui-sref=\"participant-detail.overview({cprId: cpr.id})\">{{cpr.ppid}}</a></li><li><a ui-sref=\"visit-detail.overview({visitId: visit.id, eventId: visit.eventId})\">{{visit.name}}</a></li></ul>",
+          "leftTitle": "<span ng-if=\"!!specimen.label\">{{specimen.label}}</span><span ng-if=\"!specimen.label\">{{specimen.type}} ({{specimen.specimenClass}})</span>",
+          "rightTitle": "<div ng-style=\"!!cpr.participant.pmis[0].mrn && {'font-size': '16px', 'margin-top': '-15px'}\" ng-if=\"userCtx.hasPhiAccess\"><div>{{cpr.participant.firstName}} {{cpr.participant.lastName}}</div><div>{{cpr.participant.pmis[0].mrn}}</div></div>"
+        },
+        "showSpmnEvents": false,
+        "showVisitActivity": false
+      }
+    },
+   {
+      "name": "sde",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "enableDeposits": false,
+        "multiplePatientSamples": {
+          "groups": [
+            {
+              "title": "Accession Information",
+              "fields": [
+                [
+                  {
+                    "name": "visit.surgicalPathologyNumber",
+                    "baseField": "visit.surgicalPathologyNumber"
+                  },
+                  {
+                    "name": "specimen.collectionEvent.user",
+                    "baseField": "specimen.collectionEvent.user"
+                  },
+                  {
+                    "name": "visit.site",
+                    "baseField": "visit.site"
+                  }
+                ],
+                [
+                  {
+                    "name": "visit.clinicalDiagnoses",
+                    "baseField": "visit.clinicalDiagnoses"
+                  }
+                ],
+                [
+                  {
+                    "name": "specimen.collectionEvent.time",
+                    "baseField": "specimen.collectionEvent.time"
+                  },
+                  {
+                    "name": "specimen.extensionDetail.attrsMap.DP27",
+                    "baseField": "specimen.extensionDetail.attrsMap.DP27"
+                  },
+                  {
+                    "name": "specimen.receivedEvent.time",
+                    "baseField": "specimen.receivedEvent.time"
+                  }
+                ]
+              ]
+            }
+          ],
+          "table": [
+            {
+              "name": "specimen.extensionDetail.attrsMap.NT8",
+              "baseField": "specimen.extensionDetail.attrsMap.NT8",
+              "minWidth": "25px"
+            },
+            {
+              "name": "specimen.extensionDetail.attrsMap.NT9",
+              "baseField": "specimen.extensionDetail.attrsMap.NT9",
+              "minWidth": "25px"
+            },
+            {
+              "name": "specimen.reqCode",
+              "baseField": "specimen.reqCode",
+              "minWidth": "100px"
+            },
+            {
+              "name": "specimen.anatomicSite",
+              "baseField": "specimen.anatomicSite",
+              "minWidth": "180px"
+            },
+            {
+              "name": "specimen.pathology",
+              "baseField": "specimen.pathology",
+              "minWidth": "180px"
+            },
+            {
+              "name": "specimen.laterality",
+              "baseField": "specimen.laterality",
+              "minWidth": "100px"
+            },
+            {
+              "name": "specimen.extensionDetail.attrsMap.DD22",
+              "baseField": "specimen.extensionDetail.attrsMap.DD22",
+              "width": "180px"
+            },
+            {
+              "name": "specimen.extensionDetail.attrsMap.MLB4",
+              "baseField": "specimen.extensionDetail.attrsMap.MLB4",
+              "width": "180px"
+            },
+            {
+              "name": "specimen.extensionDetail.attrsMap.DD20",
+              "baseField": "specimen.extensionDetail.attrsMap.DD20",
+              "width": "180px"
+            },
+            {
+              "name": "specimen.comments",
+              "baseField": "specimen.comments",
+              "width": "200px"
+            }
+          ]
+        }
+      }
+    },
+   {
+      "name": "visitsTab",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "occurred": [
+          {
+            "field": "visit.name",
+            "baseField": "visit.name",
+            "width": "150px"
+          },
+          {
+            "field": "visit.surgicalPathologyNumber",
+            "baseField": "visit.surgicalPathologyNumber",
+            "width": "150px"
+          },
+          {
+            "field": "visit.visitDate",
+            "baseField": "visit.visitDate",
+            "width": "150px"
+          }
+        ]
+      }
+    },
+   {
+      "name": "visitsLookup",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "enable": true,
+        "matchTable": [
+          {
+            "name": "visit.name",
+            "baseField": "visit.name",
+            "caption": "Bank Number"
+          },
+          {
+            "name": "visit.visitDate",
+            "baseField": "visit.visitDate"
+          },
+          {
+            "name": "visit.surgicalPathologyNumber",
+            "baseField": "visit.surgicalPathologyNumber",
+            "caption": "Accession Number"
+          }
+        ],
+        "searchAttrs": [
+          {
+            "attr": "EMPI_MRN",
+            "caption": "MRN"
+          },
+          {
+            "attr": "VISIT_NAME",
+            "caption": "Bank Number"
+          },
+          {
+            "attr": "SPR_NO",
+            "caption": "Accession Number"
+          }
+        ]
+      }
+    },
+   {
+      "name": "specimenTree",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "summaryDescTmpl": "<span><span ng-if=\"!!specimen.label\">{{specimen.label}} (</span><span><os-specimen-type-prop specimen=\"specimen\" prop=\"abbreviation\"></os-specimen-type-prop>)</span></span>",
+        "fields": [
+          {
+            "name": "specimen",
+            "caption": "Description",
+            "type": "specimen-description",
+            "width": "360px"
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.NT8",
+            "baseField": "specimen.extensionDetail.attrsMap.NT8",
+            "width": "50px"
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.NT9",
+            "baseField": "specimen.extensionDetail.attrsMap.NT9",
+            "width": "50px"
+          },
+          {
+            "name": "specimen.label",
+            "caption": "Label",
+            "width": "200px"
+          },
+          {
+            "name": "specimen.pathology",
+            "baseField": "specimen.pathology",
+            "width": "110px"
+          },
+          {
+            "name": "specimen.anatomicSite",
+            "baseField": "specimen.anatomicSite",
+            "width": "110px"
+          },
+          {
+            "name": "specimen.extensionDetail.attrsMap.DD22",
+            "baseField": "specimen.extensionDetail.attrsMap.DD22",
+            "width": "110px"
+          },
+          {
+            "name": "specimen.laterality",
+            "baseField": "specimen.laterality",
+            "width": "110px"
+          },
+          {
+            "name": "specimen.storageLocation",
+            "caption": "Box Location",
+            "baseField": "specimen.storageLocation",
+            "width": "200px",
+            "showIf": {
+              "op": "AND",
+              "rules": [
+                {
+                  "field": "specimen.lineage",
+                  "op": "!=",
+                  "value": "'New'"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+   {
+      "name": "participant-list-view",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "columns": [
+          {
+            "expr": "Participant.medicalRecord.medicalRecordNumber",
+            "caption": "Medical Record Number"
+          },
+          {
+            "expr": "concat_ws(\" \", Participant.firstName, Participant.lastName)",
+            "caption": "Name"
+          },
+          {
+            "expr": "Participant.gender",
+            "caption": "Gender"
+          },
+          {
+            "expr": "Participant.regDate",
+            "caption": "Registration Date"
+          }
+        ],
+        "criteria": "Participant.id exists",
+        "orderBy": [
+          {
+            "expr": "Participant.regDate",
+            "direction": "desc"
+          }
+        ],
+        "filters": [
+          {
+            "expr": "concat_ws(\" \", Participant.firstName, Participant.lastName)",
+            "caption": "Name",
+            "metainfo": {
+              "phi": "true"
+            }
+          },
+          {
+            "expr": "Participant.medicalRecord.medicalRecordNumber",
+            "caption": "Medical Record Number",
+            "metainfo": {
+              "phi": "true"
+            }
+          },
+          {
+            "expr": "Participant.regDate",
+            "caption": "Registration Date"
+          }
+        ]
+      }
+    },
+   {
+      "name": "specimen-list-view",
+      "view": null,
+      "ctrl": null,
+      "data": {
+        "columns": [
+          {
+            "expr": "Specimen.label",
+            "caption": "Label",
+            "metainfo": {
+              "showLink": "true"
+            }
+          },
+          {
+            "expr": "Specimen.createdOn",
+            "caption": "Created On"
+          },
+          {
+            "expr": "Specimen.type",
+            "caption": "Type"
+          },
+          {
+            "expr": "Specimen.tissueSite",
+            "caption": "Anatomic Site"
+          },
+          {
+            "expr": "Specimen.pathologicalStatus",
+            "caption": "Pathology Status"
+          },
+          {
+            "expr": "Specimen.availableQty",
+            "caption": "Quantity",
+            "metainfo": {
+              "showUnit": "true",
+              "measure": "quantity"
+            }
+          },
+          {
+            "expr": "concat(Specimen.specimenPosition.containerName, concat_ws(\"\", concat(\" (\", Specimen.specimenPosition.formattedPos, \")\")))",
+            "caption": "Box Location"
+          }
+        ],
+        "criteria": "Specimen.availableQty > 0 and Specimen.collectionStatus = \"Collected\"",
+        "orderBy": [
+          {
+            "expr": "Specimen.createdOn",
+            "direction": "desc"
+          }
+        ],
+        "filters": [
+          {
+            "expr": "Specimen.label",
+            "caption": "Label",
+            "searchType": "contains"
+          },
+          {
+            "expr": "Specimen.lineage",
+            "caption": "Lineage"
+          },
+          {
+            "expr": "Specimen.createdOn",
+            "caption": "Created On"
+          },
+          {
+            "expr": "Specimen.type",
+            "caption": "Type"
+          },
+          {
+            "expr": "Specimen.tissueSite",
+            "caption": "Anatomic Site"
+          },
+          {
+            "expr": "Specimen.pathologicalStatus",
+            "caption": "Pathology Status"
+          },
+          {
+            "expr": "Specimen.availableQty",
+            "caption": "Quantity"
+          }
+        ]
+      }
+    }
+]
